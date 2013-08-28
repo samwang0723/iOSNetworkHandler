@@ -21,6 +21,10 @@
 		8BA6B85617CE0E6200D90334 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BA6B83717CE0E6200D90334 /* Foundation.framework */; };
 		8BA6B85E17CE0E6200D90334 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8BA6B85C17CE0E6200D90334 /* InfoPlist.strings */; };
 		8BA6B86117CE0E6200D90334 /* NetworkHandlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA6B86017CE0E6200D90334 /* NetworkHandlerTests.m */; };
+		8BA6B86D17CE0E8600D90334 /* HttpResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA6B86C17CE0E8600D90334 /* HttpResponse.m */; };
+		8BA6B87017CE0E9400D90334 /* HttpHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA6B86F17CE0E9400D90334 /* HttpHeader.m */; };
+		8BA6B87317CE0EA100D90334 /* NetworkHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA6B87217CE0EA100D90334 /* NetworkHandler.m */; };
+		8BA6B87617CE0F7800D90334 /* SampleUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA6B87517CE0F7800D90334 /* SampleUIViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +57,14 @@
 		8BA6B85D17CE0E6200D90334 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8BA6B85F17CE0E6200D90334 /* NetworkHandlerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkHandlerTests.h; sourceTree = "<group>"; };
 		8BA6B86017CE0E6200D90334 /* NetworkHandlerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NetworkHandlerTests.m; sourceTree = "<group>"; };
+		8BA6B86B17CE0E8600D90334 /* HttpResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpResponse.h; sourceTree = "<group>"; };
+		8BA6B86C17CE0E8600D90334 /* HttpResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpResponse.m; sourceTree = "<group>"; };
+		8BA6B86E17CE0E9400D90334 /* HttpHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpHeader.h; sourceTree = "<group>"; };
+		8BA6B86F17CE0E9400D90334 /* HttpHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpHeader.m; sourceTree = "<group>"; };
+		8BA6B87117CE0EA100D90334 /* NetworkHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkHandler.h; sourceTree = "<group>"; };
+		8BA6B87217CE0EA100D90334 /* NetworkHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkHandler.m; sourceTree = "<group>"; };
+		8BA6B87417CE0F7800D90334 /* SampleUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleUIViewController.h; sourceTree = "<group>"; };
+		8BA6B87517CE0F7800D90334 /* SampleUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleUIViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,8 +124,11 @@
 		8BA6B83B17CE0E6200D90334 /* NetworkHandler */ = {
 			isa = PBXGroup;
 			children = (
+				8BA6B86A17CE0E6F00D90334 /* network */,
 				8BA6B84417CE0E6200D90334 /* AppDelegate.h */,
 				8BA6B84517CE0E6200D90334 /* AppDelegate.m */,
+				8BA6B87417CE0F7800D90334 /* SampleUIViewController.h */,
+				8BA6B87517CE0F7800D90334 /* SampleUIViewController.m */,
 				8BA6B83C17CE0E6200D90334 /* Supporting Files */,
 			);
 			path = NetworkHandler;
@@ -150,6 +165,19 @@
 				8BA6B85C17CE0E6200D90334 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8BA6B86A17CE0E6F00D90334 /* network */ = {
+			isa = PBXGroup;
+			children = (
+				8BA6B86B17CE0E8600D90334 /* HttpResponse.h */,
+				8BA6B86C17CE0E8600D90334 /* HttpResponse.m */,
+				8BA6B86E17CE0E9400D90334 /* HttpHeader.h */,
+				8BA6B86F17CE0E9400D90334 /* HttpHeader.m */,
+				8BA6B87117CE0EA100D90334 /* NetworkHandler.h */,
+				8BA6B87217CE0EA100D90334 /* NetworkHandler.m */,
+			);
+			name = network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,6 +291,10 @@
 			files = (
 				8BA6B84217CE0E6200D90334 /* main.m in Sources */,
 				8BA6B84617CE0E6200D90334 /* AppDelegate.m in Sources */,
+				8BA6B86D17CE0E8600D90334 /* HttpResponse.m in Sources */,
+				8BA6B87017CE0E9400D90334 /* HttpHeader.m in Sources */,
+				8BA6B87317CE0EA100D90334 /* NetworkHandler.m in Sources */,
+				8BA6B87617CE0F7800D90334 /* SampleUIViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
