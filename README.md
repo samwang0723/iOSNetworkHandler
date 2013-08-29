@@ -19,3 +19,17 @@ Example:
     	NSLog(@"Resposne status=%d", [response getMStatusCode]);
     	NSLog(@"Resposne body=%@", [response getMResponse]);
 	}
+
+[MQTT client with SSL/TLS]
+
+Based on https://github.com/njh/marquette, I modified the SSL parts to make developers can easily change different SSL certificates and passwords.
+Please refer to SampleUIViewController.h
+
+	// Init MQTT client (without SSL)
+    [self mqttInit:@"127.0.0.1" withPort:1883];
+    
+    // Init MQTT client (with SSL)
+    [self mqttInitWithSSL:@"127.0.0.1" withPort:8883];
+    
+    [self mqttSubscribe:@"test" withQos:1];
+    [self mqttPublish:@"test" withMessage:@"sample string" withQos:1];
