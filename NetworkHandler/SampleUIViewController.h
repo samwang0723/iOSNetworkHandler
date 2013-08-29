@@ -6,7 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MosquittoClient.h"
 
-@interface SampleUIViewController : UIViewController
+@interface SampleUIViewController : UIViewController<MosquittoClientDelegate> {
+    MosquittoClient *mMosquittoClient;
+    NSTimer *mTimer;
+}
+
+@property (readonly) MosquittoClient *mMosquittoClient;
 
 @end
