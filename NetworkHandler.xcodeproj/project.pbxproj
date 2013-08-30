@@ -69,6 +69,7 @@
 		8BC8173817D06476004E5CB3 /* SSDPSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173617D06476004E5CB3 /* SSDPSocket.m */; };
 		8BC8173917D06489004E5CB3 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173417D06476004E5CB3 /* GCDAsyncUdpSocket.m */; };
 		8BC8173A17D06489004E5CB3 /* SSDPSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173617D06476004E5CB3 /* SSDPSocket.m */; };
+		8BC8173C17D064BB004E5CB3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8BC8173B17D064BB004E5CB3 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,6 +152,7 @@
 		8BC8173417D06476004E5CB3 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		8BC8173517D06476004E5CB3 /* SSDPSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDPSocket.h; sourceTree = "<group>"; };
 		8BC8173617D06476004E5CB3 /* SSDPSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSDPSocket.m; sourceTree = "<group>"; };
+		8BC8173B17D064BB004E5CB3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 		8BA6B83C17CE0E6200D90334 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8BC8173B17D064BB004E5CB3 /* README.md */,
 				8BA6B83D17CE0E6200D90334 /* NetworkHandler-Info.plist */,
 				8BA6B83E17CE0E6200D90334 /* InfoPlist.strings */,
 				8BA6B84117CE0E6200D90334 /* main.m */,
@@ -423,6 +426,7 @@
 				8BA6B8C817CEF87400D90334 /* ca.crt in Resources */,
 				8BA6B8C917CEF87400D90334 /* client.crt in Resources */,
 				8BA6B8CA17CEF87400D90334 /* client.key in Resources */,
+				8BC8173C17D064BB004E5CB3 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
