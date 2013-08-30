@@ -65,6 +65,10 @@
 		8BA6B8C817CEF87400D90334 /* ca.crt in Resources */ = {isa = PBXBuildFile; fileRef = 8BA6B8C517CEF87400D90334 /* ca.crt */; };
 		8BA6B8C917CEF87400D90334 /* client.crt in Resources */ = {isa = PBXBuildFile; fileRef = 8BA6B8C617CEF87400D90334 /* client.crt */; };
 		8BA6B8CA17CEF87400D90334 /* client.key in Resources */ = {isa = PBXBuildFile; fileRef = 8BA6B8C717CEF87400D90334 /* client.key */; };
+		8BC8173717D06476004E5CB3 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173417D06476004E5CB3 /* GCDAsyncUdpSocket.m */; };
+		8BC8173817D06476004E5CB3 /* SSDPSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173617D06476004E5CB3 /* SSDPSocket.m */; };
+		8BC8173917D06489004E5CB3 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173417D06476004E5CB3 /* GCDAsyncUdpSocket.m */; };
+		8BC8173A17D06489004E5CB3 /* SSDPSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173617D06476004E5CB3 /* SSDPSocket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +147,10 @@
 		8BA6B8C517CEF87400D90334 /* ca.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ca.crt; path = keys/ca.crt; sourceTree = "<group>"; };
 		8BA6B8C617CEF87400D90334 /* client.crt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = client.crt; path = keys/client.crt; sourceTree = "<group>"; };
 		8BA6B8C717CEF87400D90334 /* client.key */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = client.key; path = keys/client.key; sourceTree = "<group>"; };
+		8BC8173317D06476004E5CB3 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		8BC8173417D06476004E5CB3 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		8BC8173517D06476004E5CB3 /* SSDPSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDPSocket.h; sourceTree = "<group>"; };
+		8BC8173617D06476004E5CB3 /* SSDPSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSDPSocket.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +218,7 @@
 		8BA6B83B17CE0E6200D90334 /* NetworkHandler */ = {
 			isa = PBXGroup;
 			children = (
+				8BC8173217D06468004E5CB3 /* ssdp */,
 				8BA6B88617CEDCAD00D90334 /* libmosquitto */,
 				8BA6B87717CEDB5400D90334 /* mqtt */,
 				8BA6B86A17CE0E6F00D90334 /* network */,
@@ -325,6 +334,17 @@
 			name = keys;
 			sourceTree = "<group>";
 		};
+		8BC8173217D06468004E5CB3 /* ssdp */ = {
+			isa = PBXGroup;
+			children = (
+				8BC8173317D06476004E5CB3 /* GCDAsyncUdpSocket.h */,
+				8BC8173417D06476004E5CB3 /* GCDAsyncUdpSocket.m */,
+				8BC8173517D06476004E5CB3 /* SSDPSocket.h */,
+				8BC8173617D06476004E5CB3 /* SSDPSocket.m */,
+			);
+			name = ssdp;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -437,6 +457,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BC8173917D06489004E5CB3 /* GCDAsyncUdpSocket.m in Sources */,
+				8BC8173A17D06489004E5CB3 /* SSDPSocket.m in Sources */,
 				8BA6B8C317CEE47700D90334 /* getMacAddress.m in Sources */,
 				8BA6B8AE17CEDD3200D90334 /* logging_mosq.c in Sources */,
 				8BA6B8AF17CEDD3200D90334 /* memory_mosq.c in Sources */,
@@ -483,6 +505,8 @@
 				8BA6B8AC17CEDD2300D90334 /* util_mosq.c in Sources */,
 				8BA6B8AD17CEDD2300D90334 /* will_mosq.c in Sources */,
 				8BA6B8C017CEDE7C00D90334 /* getMacAddress.m in Sources */,
+				8BC8173717D06476004E5CB3 /* GCDAsyncUdpSocket.m in Sources */,
+				8BC8173817D06476004E5CB3 /* SSDPSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
