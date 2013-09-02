@@ -33,3 +33,29 @@ Please refer to SampleUIViewController.h
     
     [self mqttSubscribe:@"test" withQos:1];
     [self mqttPublish:@"test" withMessage:@"sample string" withQos:1];
+    
+[SSDP alive devices]
+
+Based on https://github.com/robbiehanson/CocoaAsyncSocket, I create three structures 1) SSDPDevice 2) SSDPDeviceIcon 3) SSDPDeviceService to store the information from SSDP alive devices. 
+
+Developers who wants to retrieve them immediately, please implements the SSDPDelegate.
+
+    // SSDP device receiver
+    mSSDPSock = [[SSDPSocket alloc] init];
+    mSSDPSock.delegate = self;
+    [mSSDPSock initSSDPSocket];
+    [mSSDPSock sendSearchRequest];
+
+    - (void) didReceiveDevices: (SSDPDevice *)device
+    {
+        NSLog(@"----- didReceiveDevices ------");
+        NSLog(@"FriendlyName= \t\t%@", [device mFriendlyName]);
+        NSLog(@"SerialNumber= \t\t%@", [device mSerialNumber]);
+        NSLog(@"DeviceType= \t\t%@", [device mDeviceType]);
+        NSLog(@"ModelDescription= \t%@", [device mModelDescription]);
+        NSLog(@"UDN= \t\t\t%@", [device mUDN]);
+        for(SSDPDeviceService *service in [device mServiceList]){
+            NSLog(@"EventSubURL= \t\t%@", [service mEventSubURL]);
+            NSLog(@"ServiceType= \t\t%@", [service mServiceType]);
+        }
+    }
