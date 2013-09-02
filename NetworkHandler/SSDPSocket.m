@@ -7,46 +7,43 @@
 //
 
 #import "SSDPSocket.h"
+#import "HttpHeader.h"
+#import "HttpResponse.h"
+#import "NetworkHandler.h"
 
 @implementation SSDPSocket
 
-NSString *const SSDP_FOUND_DEVICES_NOTIFY = @"SSDP_FOUND_DEVICES";
-NSString *const SSDP_TORPEDO_DEVICE = @"SSDP_TORPEDO_DEVICE";
-NSString *const SSDP_TORPEDO_DEVICE_NAME = @"SSDP_TORPEDO_DEVICE_NAME";
-NSString *const SSDP_TORPEDO_DEVICE_ADDRESS = @"SSDP_TORPEDO_DEVICE_ADDRESS";
+@synthesize delegate;
 
 - (void)initSSDPSocket
 {    
 	udpSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-	
 	NSError *error = nil;
 
     [udpSocket enableBroadcast:TRUE error:nil];
-	if (![udpSocket bindToPort:SSDP_BROADCAST_PORT error:&error])
-	{
+	if (![udpSocket bindToPort:SSDP_BROADCAST_PORT error:&error]){
 		NSLog(@"Error binding: %@", error);
 		return;
 	}
-	if (![udpSocket beginReceiving:&error])
-	{
+	if (![udpSocket beginReceiving:&error]){
 		NSLog(@"Error receiving: %@", error);
 		return;
 	}
-    if (![udpSocket joinMulticastGroup:SSDP_BROADCAST_ADDRESS error:&error])
-    {
+    if (![udpSocket joinMulticastGroup:SSDP_BROADCAST_ADDRESS error:&error]){
         NSLog(@"Error joinMulticastGroup: %@", [error localizedDescription]);
 		return;
     }
-    
-    NSLog(@"SSDP init Ready");
+    NSLog(@"SSDP init Ready !!!");
 }
 
--(void) closeSSDPSocket{
+-(void) closeSSDPSocket
+{
     [udpSocket close];
 }
 
--(void)sendSearchRequest{
-    NSString *search = @"M-SEARCH * HTTP/1.1\r\nHost:239.255.255.250:1900\r\nMan: \"ssdp:discover\"\r\nST:urn:schemas-upnp-org:service:Torpedo:1\r\nMX:3\r\n\r\n";
+-(void)sendSearchRequest
+{
+    NSString *search = @"M-SEARCH * HTTP/1.1\r\nHost:239.255.255.250:1900\r\nMan: \"ssdp:discover\"\r\nST:urn:schemas-upnp-org:service:NetworkHandler:1\r\nMX:3\r\n\r\n";
     [udpSocket sendData:[search dataUsingEncoding:NSUTF8StringEncoding]
                       toHost: SSDP_BROADCAST_ADDRESS port: SSDP_BROADCAST_PORT withTimeout:-1 tag:1];
     [udpSocket joinMulticastGroup:SSDP_BROADCAST_ADDRESS error:nil];
@@ -56,13 +53,47 @@ NSString *const SSDP_TORPEDO_DEVICE_ADDRESS = @"SSDP_TORPEDO_DEVICE_ADDRESS";
 
 -(void)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(NSData *)data
         fromAddress:(NSData *)address
-        withFilterContext:(id)filterContext{
+        withFilterContext:(id)filterContext
+{
 	NSString *msg = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	if (msg){
-        NSArray *response = [msg componentsSeparatedByString:@"\r\n"];
-        if([self isWantSSDPResponse:response]){
-            [self handleResponseMessage:response];
-        };
+        if(mParsedString == nil){
+            mParsedString = [[NSMutableString alloc] init];
+        }
+        //NSLog(@"(((msg)))= %@", msg);
+        if([msg rangeOfString:NOTIFY].location != NSNotFound
+           && [msg rangeOfString:SSDP_ALIVE].location != NSNotFound){
+            NSArray *info = [msg componentsSeparatedByString:@"\r\n"];
+            NSString *url = nil;
+            for(NSString *detail in info){
+                if([detail rangeOfString:LOCATION].location != NSNotFound){
+                    url = [[detail componentsSeparatedByString:LOCATION] objectAtIndex:1];
+                    break;
+                }else if([detail rangeOfString:LOCATION_2].location != NSNotFound){
+                    url = [[detail componentsSeparatedByString:LOCATION_2] objectAtIndex:1];
+                    break;
+                }
+            }
+            
+            if(url != nil && [mParsedString rangeOfString:[NSString stringWithFormat:@"%@;", url]].location == NSNotFound){
+                [mParsedString appendString:[NSString stringWithFormat:@"%@;", url]];
+                NSLog(@"(((url)))=%@", url);
+                HttpResponse *response = [self retrieveDeviceInfo:url];
+                if([response getMStatusCode] == 200){
+                    SSDPDevice *device = [[SSDPDevice alloc] init];
+                    SSDPDeviceParser *parser = [[SSDPDeviceParser alloc] init];
+                    [parser setDevice:device];
+                    [parser parseSSDPDevice:[response getMResponse]];
+                    
+                    NSLog(@"device name=%@", [device mFriendlyName]);
+                    
+                    // call delegate to notify device added
+                    if(self.delegate != nil){
+                        [self.delegate didReceiveDevices:device];
+                    }
+                }
+            }
+        }
 	}else{
 		NSString *host = nil;
 		uint16_t port = 0;
@@ -72,38 +103,18 @@ NSString *const SSDP_TORPEDO_DEVICE_ADDRESS = @"SSDP_TORPEDO_DEVICE_ADDRESS";
 	}
 }
 
--(BOOL)isWantSSDPResponse: (NSArray *)response{
-    if([response count]<7){
-        return NO;
-    }
-    NSString *responseType = [response objectAtIndex:6];
-    NSString *target = @"ST:urn:schemas-upnp-org:service:Torpedo:1";
-    if([responseType isEqualToString:target]){
-        return YES;
-    }else{
-        return NO;
-    }
-}
-
--(void) handleResponseMessage: (NSArray *) response{
-    NSString *address = [[response objectAtIndex:4] substringFromIndex:9];
-    NSString *deviceName = [[response objectAtIndex:5] substringFromIndex:7];
-    NSLog(@"address:%@", address);
-    NSLog(@"device name:%@", deviceName);
-
-    [self sendGotDevicesNotification:deviceName address:address];
-}
-
--(void) sendGotDevicesNotification:(NSString *) deviceName address:(NSString *) address{
+- (HttpResponse *) retrieveDeviceInfo:(NSString *)url
+{
+    HttpHeader *header = [[HttpHeader alloc] init];
+    [header setHeader:HTTP_ACCEPT value:@"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"];
+    [header setHeader:HTTP_CONNECTION value:@"keep-alive"];
+    [header setHeader:HTTP_USER_AGENT value:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36"];
     
-    NSString *deviceString = @"";
-    deviceString = [deviceString stringByAppendingFormat:@"%@ - %@", deviceName, address];
+    HttpResponse *response = [NetworkHandler get:url withData:nil withSSL:YES header:header];
+    NSLog(@"Resposne status=%d", [response getMStatusCode]);
+    NSLog(@"Resposne body=%@", [response getMResponse]);
     
-    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:deviceString, SSDP_TORPEDO_DEVICE, deviceName, SSDP_TORPEDO_DEVICE_NAME, address, SSDP_TORPEDO_DEVICE_ADDRESS, nil];
-    NSNotification *notify = [NSNotification notificationWithName:SSDP_FOUND_DEVICES_NOTIFY object:nil userInfo:dict];
-    [[NSNotificationCenter defaultCenter] postNotification:notify];
-    
-    //[[NSNotificationCenter defaultCenter] postNotificationName:GOT_DEVICES object:self];
+    return response;
 }
 
 @end

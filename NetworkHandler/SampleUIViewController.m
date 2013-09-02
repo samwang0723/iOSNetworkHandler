@@ -25,18 +25,38 @@
     [super viewDidLoad];
 
     // Sample webpage retrieve behavior
-    [self performSelectorInBackground:@selector(doNetworkStuff) withObject:nil];
+    //[self performSelectorInBackground:@selector(doNetworkStuff) withObject:nil];
     
     // Init MQTT client (without SSL)
     //[self mqttInit:@"127.0.0.1" withPort:1883];
     
     // Init MQTT client (with SSL)
-    [self mqttInitWithSSL:@"127.0.0.1" withPort:8883];
+    //[self mqttInitWithSSL:@"127.0.0.1" withPort:8883];
+    
+    // SSDP device receiver
+    mSSDPSock = [[SSDPSocket alloc] init];
+    mSSDPSock.delegate = self;
+    [mSSDPSock initSSDPSocket];
+    [mSSDPSock sendSearchRequest];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+}
+
+- (void) dealloc
+{
+    if(mSSDPSock != nil){
+        [mSSDPSock closeSSDPSocket];
+        mSSDPSock = nil;
+    }
+    
+    if(mMosquittoClient != nil){
+        [mMosquittoClient disconnect];
+        [mMosquittoClient clearMosquittoLib];
+        mMosquittoClient = nil;
+    }
 }
 
 - (void) doNetworkStuff
@@ -50,6 +70,21 @@
     HttpResponse *response = [NetworkHandler get:@"https://www.google.com" withData:nil withSSL:YES header:header];
     NSLog(@"Resposne status=%d", [response getMStatusCode]);
     NSLog(@"Resposne body=%@", [response getMResponse]);
+}
+
+#pragma mark SSDP parts
+- (void) didReceiveDevices: (SSDPDevice *)device
+{
+    NSLog(@"----- didReceiveDevices ------");
+    NSLog(@"FriendlyName= \t\t%@", [device mFriendlyName]);
+    NSLog(@"SerialNumber= \t\t%@", [device mSerialNumber]);
+    NSLog(@"DeviceType= \t\t%@", [device mDeviceType]);
+    NSLog(@"ModelDescription= \t%@", [device mModelDescription]);
+    NSLog(@"UDN= \t\t\t%@", [device mUDN]);
+    for(SSDPDeviceService *service in [device mServiceList]){
+        NSLog(@"EventSubURL= \t\t%@", [service mEventSubURL]);
+        NSLog(@"ServiceType= \t\t%@", [service mServiceType]);
+    }
 }
 
 #pragma mark MQTT parts

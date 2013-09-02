@@ -7,9 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MosquittoClient.h"
+#import "SSDPSocket.h"
 
-@interface SampleUIViewController : UIViewController<MosquittoClientDelegate> {
+@interface SampleUIViewController : UIViewController<MosquittoClientDelegate, SSDPDelegate> {
     MosquittoClient *mMosquittoClient;
+    SSDPSocket *mSSDPSock;
     NSTimer *mTimer;
 }
 

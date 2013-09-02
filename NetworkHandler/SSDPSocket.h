@@ -7,18 +7,28 @@
 //
 #import <Foundation/Foundation.h>
 #import "GCDAsyncUdpSocket.h"
+#import "SSDPDevice.h"
+#import "SSDPDeviceParser.h"
 
 #define SSDP_BROADCAST_ADDRESS @"239.255.255.250"
 #define SSDP_BROADCAST_PORT    1900
 
-extern NSString *const SSDP_FOUND_DEVICES_NOTIFY;
-extern NSString *const SSDP_TORPEDO_DEVICE;
-extern NSString *const SSDP_TORPEDO_DEVICE_NAME;
-extern NSString *const SSDP_TORPEDO_DEVICE_ADDRESS;
+#define NOTIFY @"NOTIFY"
+#define SSDP_ALIVE @"ssdp:alive"
+#define LOCATION @"LOCATION: "
+#define LOCATION_2 @"Location:"
+
+@protocol SSDPDelegate
+- (void) didReceiveDevices: (SSDPDevice *)device;
+@end
 
 @interface SSDPSocket : NSObject{
     GCDAsyncUdpSocket *udpSocket;
+    NSMutableString *mParsedString;
+    id<SSDPDelegate> delegate;
 }
+
+@property (retain, nonatomic) id<SSDPDelegate> delegate;
 
 -(void) initSSDPSocket;
 -(void) sendSearchRequest;
