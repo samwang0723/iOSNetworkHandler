@@ -69,7 +69,6 @@
 		8BC8173817D06476004E5CB3 /* SSDPSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173617D06476004E5CB3 /* SSDPSocket.m */; };
 		8BC8173917D06489004E5CB3 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173417D06476004E5CB3 /* GCDAsyncUdpSocket.m */; };
 		8BC8173A17D06489004E5CB3 /* SSDPSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173617D06476004E5CB3 /* SSDPSocket.m */; };
-		8BC8173C17D064BB004E5CB3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8BC8173B17D064BB004E5CB3 /* README.md */; };
 		8BC8173F17D07566004E5CB3 /* SSDPDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8173E17D07566004E5CB3 /* SSDPDevice.m */; };
 		8BC8174217D07719004E5CB3 /* SSDPDeviceIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8174117D07719004E5CB3 /* SSDPDeviceIcon.m */; };
 		8BC8174517D077D7004E5CB3 /* SSDPDeviceService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8174417D077D6004E5CB3 /* SSDPDeviceService.m */; };
@@ -81,6 +80,7 @@
 		8BC8175317D07CC2004E5CB3 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8174D17D07CB3004E5CB3 /* XPathQuery.m */; };
 		8BC8175517D07CDB004E5CB3 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BC8175417D07CDB004E5CB3 /* libxml2.dylib */; };
 		8BC8175817D08B7B004E5CB3 /* SSDPDeviceParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC8175717D08B7B004E5CB3 /* SSDPDeviceParser.m */; };
+		8BC8175B17D43002004E5CB3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 8BC8175A17D43002004E5CB3 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,7 +163,6 @@
 		8BC8173417D06476004E5CB3 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
 		8BC8173517D06476004E5CB3 /* SSDPSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDPSocket.h; sourceTree = "<group>"; };
 		8BC8173617D06476004E5CB3 /* SSDPSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSDPSocket.m; sourceTree = "<group>"; };
-		8BC8173B17D064BB004E5CB3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		8BC8173D17D07566004E5CB3 /* SSDPDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDPDevice.h; sourceTree = "<group>"; };
 		8BC8173E17D07566004E5CB3 /* SSDPDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSDPDevice.m; sourceTree = "<group>"; };
 		8BC8174017D07719004E5CB3 /* SSDPDeviceIcon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDPDeviceIcon.h; sourceTree = "<group>"; };
@@ -179,6 +178,7 @@
 		8BC8175417D07CDB004E5CB3 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		8BC8175617D08B7A004E5CB3 /* SSDPDeviceParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDPDeviceParser.h; sourceTree = "<group>"; };
 		8BC8175717D08B7B004E5CB3 /* SSDPDeviceParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSDPDeviceParser.m; sourceTree = "<group>"; };
+		8BC8175A17D43002004E5CB3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,7 +265,7 @@
 		8BA6B83C17CE0E6200D90334 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8BC8173B17D064BB004E5CB3 /* README.md */,
+				8BC8175A17D43002004E5CB3 /* README.md */,
 				8BA6B83D17CE0E6200D90334 /* NetworkHandler-Info.plist */,
 				8BA6B83E17CE0E6200D90334 /* InfoPlist.strings */,
 				8BA6B84117CE0E6200D90334 /* main.m */,
@@ -476,7 +476,7 @@
 				8BA6B8C817CEF87400D90334 /* ca.crt in Resources */,
 				8BA6B8C917CEF87400D90334 /* client.crt in Resources */,
 				8BA6B8CA17CEF87400D90334 /* client.key in Resources */,
-				8BC8173C17D064BB004E5CB3 /* README.md in Resources */,
+				8BC8175B17D43002004E5CB3 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
