@@ -1,2 +1,0 @@
-
-NSString* getMacAddress();

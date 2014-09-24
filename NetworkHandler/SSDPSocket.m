@@ -79,11 +79,11 @@
                 [mParsedString appendString:[NSString stringWithFormat:@"%@;", url]];
                 NSLog(@"(((url)))=%@", url);
                 HttpResponse *response = [self retrieveDeviceInfo:url];
-                if([response getMStatusCode] == 200){
+                if([response mStatusCode] == 200){
                     SSDPDevice *device = [[SSDPDevice alloc] init];
                     SSDPDeviceParser *parser = [[SSDPDeviceParser alloc] init];
                     [parser setDevice:device];
-                    [parser parseSSDPDevice:[response getMResponse]];
+                    [parser parseSSDPDevice:[response mResponse]];
                     
                     NSLog(@"device name=%@", [device mFriendlyName]);
                     
@@ -110,9 +110,9 @@
     [header setHeader:HTTP_CONNECTION value:@"keep-alive"];
     [header setHeader:HTTP_USER_AGENT value:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36"];
     
-    HttpResponse *response = [NetworkHandler get:url withData:nil withSSL:YES header:header];
-    NSLog(@"Resposne status=%d", [response getMStatusCode]);
-    NSLog(@"Resposne body=%@", [response getMResponse]);
+    HttpResponse *response = [NetworkHandler httpAction:url method:HTTP_GET withData:nil header:header withDelegate:nil];
+    NSLog(@"Resposne status=%d", [response mStatusCode]);
+    NSLog(@"Resposne body=%@", [response mResponse]);
     
     return response;
 }

@@ -10,7 +10,6 @@
 #import "HttpResponse.h"
 #import "HttpHeader.h"
 #import "NetworkHandler.h"
-#import "getMacAddress.h"
 
 @interface SampleUIViewController ()
 
@@ -25,19 +24,19 @@
     [super viewDidLoad];
 
     // Sample webpage retrieve behavior
-    //[self performSelectorInBackground:@selector(doNetworkStuff) withObject:nil];
+//    [self performSelectorInBackground:@selector(doNetworkStuff) withObject:nil];
     
     // Init MQTT client (without SSL)
     //[self mqttInit:@"127.0.0.1" withPort:1883];
     
     // Init MQTT client (with SSL)
-    //[self mqttInitWithSSL:@"127.0.0.1" withPort:8883];
+//    [self mqttInitWithSSL:@"10.70.1.81" withPort:8883];
     
     // SSDP device receiver
-    mSSDPSock = [[SSDPSocket alloc] init];
-    mSSDPSock.delegate = self;
-    [mSSDPSock initSSDPSocket];
-    [mSSDPSock sendSearchRequest];
+//    mSSDPSock = [[SSDPSocket alloc] init];
+//    mSSDPSock.delegate = self;
+//    [mSSDPSock initSSDPSocket];
+//    [mSSDPSock sendSearchRequest];
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,9 +66,9 @@
     [header setHeader:HTTP_CONNECTION value:@"keep-alive"];
     [header setHeader:HTTP_USER_AGENT value:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36"];
     
-    HttpResponse *response = [NetworkHandler get:@"https://www.google.com" withData:nil withSSL:YES header:header];
-    NSLog(@"Resposne status=%d", [response getMStatusCode]);
-    NSLog(@"Resposne body=%@", [response getMResponse]);
+    HttpResponse *response = [NetworkHandler httpAction:@"https://www.google.com" method:HTTP_GET withData:nil header:header withDelegate:nil];
+    NSLog(@"Resposne status=%d", [response mStatusCode]);
+    NSLog(@"Resposne body=%@", [[response mResponse] substringToIndex:100]);
 }
 
 #pragma mark SSDP parts
@@ -91,7 +90,7 @@
 - (void) mqttInit:(NSString *)host withPort:(int)port
 {
     // mosquitto ssl client connection
-    NSString *clientId = [NSString stringWithFormat:@"marquette_%@", getMacAddress()];
+    NSString *clientId = @"marquette_sample";
 	NSLog(@"Client ID: %@", clientId);
     mMosquittoClient = [[MosquittoClient alloc] initWithClientId:clientId];
     [mMosquittoClient setDelegate:self];
@@ -114,14 +113,14 @@
     const char *clientKey = [clientKeyFile cStringUsingEncoding:NSASCIIStringEncoding];
     
     // mosquitto ssl client connection
-    NSString *clientId = [NSString stringWithFormat:@"marquette_%@", getMacAddress()];
+    NSString *clientId = @"marquette_sample";
 	NSLog(@"Client ID: %@", clientId);
     mMosquittoClient = [[MosquittoClient alloc] initWithClientId:clientId];
     [mMosquittoClient setDelegate:self];
     [mMosquittoClient setHost:host];
     [mMosquittoClient setPort:port];
     [MosquittoClient setClientPassword:@"client"];
-	[mMosquittoClient connectWithSSL:caCrt caLocation:NULL clientCrt:clientCrt clientKey:clientKey];
+    [mMosquittoClient connectWithSSL:TLSV1 caCrt:caCrt caLocation:NULL clientCrt:clientCrt clientKey:clientKey];
 }
 
 - (void) mqttSubscribe:(NSString *)topic withQos:(int)qos

@@ -10,21 +10,8 @@
 @implementation HttpResponse
 
 @synthesize mResponse;
-
-- (int)getMStatusCode {
-    return mStatusCode;
-}
-
-- (NSString *)getMResponse {
-    return mResponse;
-}
-
-- (void)setMStatusCode:(int)status {
-    mStatusCode = status;
-}
-
-- (void)setMResponse:(NSString *)responseData {
-    mResponse = responseData;
-}
+@synthesize mAuthenticate;
+@synthesize mStatusCode;
+@synthesize mSessionId;
 
 @end

@@ -10,13 +10,13 @@
 @interface HttpResponse : NSObject {
     int mStatusCode;
     NSString *mResponse;
+    NSString *mAuthenticate;
+    NSString *mSessionId;
 }
 
-@property(nonatomic, retain) NSString *mResponse;
-
-- (int)getMStatusCode;
-- (NSString *)getMResponse;
-- (void)setMStatusCode:(int)status;
-- (void)setMResponse:(NSString *)responseData;
+@property(nonatomic, assign) int mStatusCode;
+@property(nonatomic, strong) NSString *mResponse;
+@property(nonatomic, strong) NSString *mAuthenticate;
+@property(nonatomic, strong) NSString *mSessionId;
 
 @end
