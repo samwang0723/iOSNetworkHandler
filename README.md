@@ -15,9 +15,9 @@ Example:
     	[header setHeader:HTTP_CONNECTION value:@"keep-alive"];
     	[header setHeader:HTTP_USER_AGENT value:@"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36"];
     
-    	HttpResponse *response = [NetworkHandler get:@"https://www.google.com" withData:nil withSSL:YES header:header];
-    	NSLog(@"Resposne status=%d", [response getMStatusCode]);
-    	NSLog(@"Resposne body=%@", [response getMResponse]);
+    	HttpResponse *response = [NetworkHandler httpAction:@"https://www.google.com" method:HTTP_GET withData:nil header:header withDelegate:nil];
+    	NSLog(@"Resposne status=%d", [response mStatusCode]);
+    	NSLog(@"Resposne body=%@", [response mResponse]);
 	}
 
 [MQTT client with SSL/TLS]
@@ -46,16 +46,8 @@ Developers who wants to retrieve them immediately, please implements the SSDPDel
     [mSSDPSock initSSDPSocket];
     [mSSDPSock sendSearchRequest];
 
-    - (void) didReceiveDevices: (SSDPDevice *)device
-    {
-        NSLog(@"----- didReceiveDevices ------");
-        NSLog(@"FriendlyName= \t\t%@", [device mFriendlyName]);
-        NSLog(@"SerialNumber= \t\t%@", [device mSerialNumber]);
-        NSLog(@"DeviceType= \t\t%@", [device mDeviceType]);
-        NSLog(@"ModelDescription= \t%@", [device mModelDescription]);
-        NSLog(@"UDN= \t\t\t%@", [device mUDN]);
-        for(SSDPDeviceService *service in [device mServiceList]){
-            NSLog(@"EventSubURL= \t\t%@", [service mEventSubURL]);
-            NSLog(@"ServiceType= \t\t%@", [service mServiceType]);
-        }
-    }
+    - (void) didReceiveDeviceInfoUrl: (NSString *)url
+	{
+    	NSLog(@"didReceiveDeviceInfoUrl: %@", url);
+	}
+
