@@ -19,7 +19,7 @@
 #define LOCATION_2 @"Location:"
 
 @protocol SSDPDelegate
-- (void) didReceiveDevices: (SSDPDevice *)device;
+- (void) didReceiveDeviceInfoUrl: (NSString *)url;
 @end
 
 @interface SSDPSocket : NSObject{
@@ -33,5 +33,6 @@
 -(void) initSSDPSocket;
 -(void) sendSearchRequest;
 -(void) closeSSDPSocket;
+- (SSDPDevice *) retrieveDeviceInfo:(NSString *)responseData;
 
 @end

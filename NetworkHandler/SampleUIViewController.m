@@ -33,10 +33,10 @@
 //    [self mqttInitWithSSL:@"10.70.1.81" withPort:8883];
     
     // SSDP device receiver
-//    mSSDPSock = [[SSDPSocket alloc] init];
-//    mSSDPSock.delegate = self;
-//    [mSSDPSock initSSDPSocket];
-//    [mSSDPSock sendSearchRequest];
+    mSSDPSock = [[SSDPSocket alloc] init];
+    mSSDPSock.delegate = self;
+    [mSSDPSock initSSDPSocket];
+    [mSSDPSock sendSearchRequest];
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,18 +72,9 @@
 }
 
 #pragma mark SSDP parts
-- (void) didReceiveDevices: (SSDPDevice *)device
+- (void) didReceiveDeviceInfoUrl: (NSString *)url
 {
-    NSLog(@"----- didReceiveDevices ------");
-    NSLog(@"FriendlyName= \t\t%@", [device mFriendlyName]);
-    NSLog(@"SerialNumber= \t\t%@", [device mSerialNumber]);
-    NSLog(@"DeviceType= \t\t%@", [device mDeviceType]);
-    NSLog(@"ModelDescription= \t%@", [device mModelDescription]);
-    NSLog(@"UDN= \t\t\t%@", [device mUDN]);
-    for(SSDPDeviceService *service in [device mServiceList]){
-        NSLog(@"EventSubURL= \t\t%@", [service mEventSubURL]);
-        NSLog(@"ServiceType= \t\t%@", [service mServiceType]);
-    }
+    NSLog(@"didReceiveDeviceInfoUrl: %@", url);
 }
 
 #pragma mark MQTT parts
