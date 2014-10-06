@@ -24,7 +24,7 @@
     [super viewDidLoad];
 
     // Sample webpage retrieve behavior
-//    [self performSelectorInBackground:@selector(doNetworkStuff) withObject:nil];
+    [self performSelectorInBackground:@selector(doNetworkStuff) withObject:nil];
     
     // Init MQTT client (without SSL)
     //[self mqttInit:@"127.0.0.1" withPort:1883];
@@ -33,10 +33,10 @@
 //    [self mqttInitWithSSL:@"10.70.1.81" withPort:8883];
     
     // SSDP device receiver
-    mSSDPSock = [[SSDPSocket alloc] init];
-    mSSDPSock.delegate = self;
-    [mSSDPSock initSSDPSocket];
-    [mSSDPSock sendSearchRequest];
+//    mSSDPSock = [[SSDPSocket alloc] init];
+//    mSSDPSock.delegate = self;
+//    [mSSDPSock initSSDPSocket];
+//    [mSSDPSock sendSearchRequest];
 }
 
 - (void)didReceiveMemoryWarning

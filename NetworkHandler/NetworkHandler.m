@@ -46,13 +46,12 @@
         if ([request responseStatusCode] == 0 || [Utils isEmptyString:[request responseString]]){
             return nil;
         }
-        const char *c = [[request responseString] cStringUsingEncoding:NSISOLatin1StringEncoding];
-        NSString *newString = [[NSString alloc]initWithCString:c encoding:NSUTF8StringEncoding];
-        HTTPLog(@"RESPONSE: %@", newString);
+        NSString *responseString = [request responseString];
+        HTTPLog(@"RESPONSE: %@", responseString);
         
         HttpResponse *httpResponse = [[HttpResponse alloc] init];
         [httpResponse setMStatusCode:[request responseStatusCode]];
-        [httpResponse setMResponse:newString];
+        [httpResponse setMResponse:responseString];
         
         NSDictionary *dict = [request responseHeaders];
         if(dict != nil){
@@ -107,13 +106,12 @@
         if ([request responseStatusCode] == 0){
             return nil;
         }
-        const char *c = [[request responseString] cStringUsingEncoding:NSISOLatin1StringEncoding];
-        NSString *newString = [[NSString alloc]initWithCString:c encoding:NSUTF8StringEncoding];
-        HTTPLog(@"RESPONSE: %@", newString);
+        NSString *responseString = [request responseString];
+        HTTPLog(@"RESPONSE: %@", responseString);
         
         HttpResponse *httpResponse = [[HttpResponse alloc] init];
         [httpResponse setMStatusCode:[request responseStatusCode]];
-        [httpResponse setMResponse:newString];
+        [httpResponse setMResponse:responseString];
         
         NSDictionary *dict = [request responseHeaders];
         if(dict != nil){
@@ -167,16 +165,15 @@
         
         HTTPLog(@"STATUS: %d", [request responseStatusCode]);
         HTTPLog(@"ERROR: %@", [request responseStatusMessage]);
-        if ([request responseStatusCode] == 0){
+        if ([request responseStatusCode] == 0 || [request responseString] == nil){
             return nil;
         }
-        const char *c = [[request responseString] cStringUsingEncoding:NSISOLatin1StringEncoding];
-        NSString *newString = [[NSString alloc]initWithCString:c encoding:NSUTF8StringEncoding];
-        HTTPLog(@"RESPONSE: %@", newString);
+        NSString *responseString = [request responseString];
+        HTTPLog(@"RESPONSE: %@", responseString);
         
         HttpResponse *httpResponse = [[HttpResponse alloc] init];
         [httpResponse setMStatusCode:[request responseStatusCode]];
-        [httpResponse setMResponse:newString];
+        [httpResponse setMResponse:responseString];
         
         NSDictionary *dict = [request responseHeaders];
         if(dict != nil){
@@ -261,13 +258,12 @@
     if ([request responseStatusCode] == 0){
         return nil;
     }
-    const char *c = [[request responseString] cStringUsingEncoding:NSISOLatin1StringEncoding];
-    NSString *newString = [[NSString alloc]initWithCString:c encoding:NSUTF8StringEncoding];
-    HTTPLog(@"RESPONSE: %@", newString);
+    NSString *responseString = [request responseString];
+    HTTPLog(@"RESPONSE: %@", responseString);
     
     HttpResponse *httpResponse = [[HttpResponse alloc] init];
     [httpResponse setMStatusCode:[request responseStatusCode]];
-    [httpResponse setMResponse:newString];
+    [httpResponse setMResponse:responseString];
     
     NSDictionary *dict = [request responseHeaders];
     if(dict != nil){
